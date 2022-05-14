@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   secretRef:
-    name: ssh-credentials
+    name: github-credentials
   interval: 5m0s
   ref:
     branch: main
