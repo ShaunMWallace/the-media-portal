@@ -3,6 +3,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - rook-ceph-mon.secret.sops.yaml
+  - rook-ceph-csi-cephfs-node-secret.sops.yaml
+  - rook-ceph-csi-rbd-node-secret.sops.yaml
+  - rook-ceph-csi-rbd-provisioner.secret.sops.yaml
   - rook-ceph-mon-endpoints.yaml
   - operator
   - common
