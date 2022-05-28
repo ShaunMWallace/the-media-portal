@@ -9,5 +9,4 @@ resources:
   - rook-ceph-mon-endpoints.yaml
   - operator
   - common
-  - common-external
   - cluster-external
