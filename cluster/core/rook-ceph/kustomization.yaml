@@ -10,3 +10,4 @@ resources:
   - operator
   - common
   - cluster-external
+  - storage
