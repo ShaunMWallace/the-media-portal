@@ -5,6 +5,6 @@ metadata:
   name: rook-ceph-mon-endpoints
   namespace: rook-ceph
 data:
-  data: a=192.168.10.31:6789,b=192.168.10.35:6789,c=192.168.10.35:6789
-  mapping: {}
-  maxMonId: 2
+  data: "prox-node-01=192.168.10.31:6789,prox-node-02=192.168.10.33:6789,prox-node-03=192.168.10.35:6789"
+  mapping: "{}"
+  maxMonId: "2"
