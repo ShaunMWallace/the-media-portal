@@ -20,7 +20,12 @@ spec:
       repository: jacobalberty/unifi
       tag: v7.1.66
     env:
-      TZ: America/New_York
+      TZ: "${TIMEZONE}"
+    service:
+      main:
+        type: LoadBalancer
+        loadBalancerIP: "${LB_UNIFI_IP}"
+        externalTrafficPolicy: Local
     ingress:
       main:
         enabled: true
@@ -46,7 +51,7 @@ spec:
         existingClaim: unifi-data
     resources:
       requests:
-        cpu: 100m
-        memory: 128Mi
-      limits:
+        cpu: 250m
         memory: 256Mi
+      limits:
+        memory: 512Mi
