@@ -21,19 +21,12 @@ spec:
       tag: v7.1.66
     env:
       TZ: "${TIMEZONE}"
-    service:
-      main:
-        type: LoadBalancer
-        loadBalancerIP: "${LB_UNIFI_IP}"
-        externalTrafficPolicy: Local
     ingress:
       main:
         enabled: true
         ingressClassName: "traefik"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "wifi-cog"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-internal-only@kubernetescrd"
         hosts:
