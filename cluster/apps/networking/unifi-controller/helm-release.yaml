@@ -7,18 +7,6 @@ metadata:
 spec:
   interval: 5m
   chart:
-    values:
-      command:
-        - /bin/sh
-        - -c
-        - tail -f /dev/null
-      probes:
-        liveness:
-          enabled: false
-        readiness:
-          enabled: false
-        startup:
-          enabled: false
     spec:
       chart: unifi
       version: 4.9.2
@@ -28,6 +16,17 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    command:
+      - /bin/sh
+      - -c
+      - tail -f /dev/null
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
     image:
       repository: jacobalberty/unifi
       tag: v7.1.66
