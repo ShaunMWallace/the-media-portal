@@ -16,24 +16,29 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    # command:
+    #   - /bin/sh
+    #   - -c
+    #   - tail -f /dev/null
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        spec:
+          periodSeconds: 120
     image:
       repository: jacobalberty/unifi
       tag: v7.1.66
     env:
       TZ: "${TIMEZONE}"
-    service:
-      main:
-        type: LoadBalancer
-        loadBalancerIP: "${LB_UNIFI_IP}"
-        externalTrafficPolicy: Local
     ingress:
       main:
         enabled: true
         ingressClassName: "traefik"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "wifi-cog"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-internal-only@kubernetescrd"
         hosts:
@@ -52,6 +57,6 @@ spec:
     resources:
       requests:
         cpu: 250m
-        memory: 256Mi
+        memory: 1000Mi
       limits:
-        memory: 512Mi
+        memory: 1390M
