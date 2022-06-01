@@ -21,10 +21,10 @@ spec:
     #   - -c
     #   - tail -f /dev/null
     probes:
-    #   liveness:
-    #     enabled: false
-    #   readiness:
-    #     enabled: false
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
       startup:
         spec:
           periodSeconds: 120
