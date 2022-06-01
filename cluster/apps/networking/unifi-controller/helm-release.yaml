@@ -16,17 +16,17 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    command:
-      - /bin/sh
-      - -c
-      - tail -f /dev/null
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-      startup:
-        enabled: false
+    # command:
+    #   - /bin/sh
+    #   - -c
+    #   - tail -f /dev/null
+    # probes:
+    #   liveness:
+    #     enabled: false
+    #   readiness:
+    #     enabled: false
+    #   startup:
+    #     enabled: false
     image:
       repository: jacobalberty/unifi
       tag: v7.1.66
