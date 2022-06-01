@@ -20,13 +20,14 @@ spec:
     #   - /bin/sh
     #   - -c
     #   - tail -f /dev/null
-    # probes:
+    probes:
     #   liveness:
     #     enabled: false
     #   readiness:
     #     enabled: false
-    #   startup:
-    #     enabled: false
+      startup:
+        spec:
+          periodSeconds: 120
     image:
       repository: jacobalberty/unifi
       tag: v7.1.66
