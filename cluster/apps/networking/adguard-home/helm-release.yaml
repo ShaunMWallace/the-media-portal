@@ -8,8 +8,6 @@ spec:
   dependsOn:
     - name: metallb
       namespace: metallb-system
-    - name: rook-ceph
-      namespace: rook-ceph
     - name: traefik
       namespace: traefik
   maxHistory: 3
