@@ -5,10 +5,7 @@ metadata:
   name: adguard-home
   namespace: networking
 spec:
-  maxHistory: 3
-  interval: 10m0s
-  suspend: false
-  releaseName: adguard-home
+  interval: 5m
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
@@ -24,15 +21,6 @@ spec:
       tag: v0.107.6
     env:
       TZ: ${TIMEZONE}
-    persistence:
-      config:
-        enabled: true
-        type: emptyDir
-        mountPath: /opt/adguardhome/conf
-      data:
-        enabled: true
-        existingClaim: adguard-home-data
-        mountPath: /opt/adguardhome/work
     service:
       main:
         enabled: true
@@ -55,7 +43,7 @@ spec:
         enabled: true
         externalTrafficPolicy: Local
         type: LoadBalancer
-        loadBalancerIP: ${METALLB_ADGUARD_IP}
+        loadBalancerIP: ${METALLB_ADGUARD_ADDR}
         annotations:
           metallb.universe.tf/allow-shared-ip: adguard-home-dns
         ports:
@@ -72,8 +60,6 @@ spec:
           cert-manager.io/cluster-issuer: 'letsencrypt-production'
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.middlewares: 'networking-internal-only@kubernetescrd'
-          hajimari.io/enable: 'true'
-          hajimari.io/icon: shield-check
         hosts:
           - host: adguard.${SECRET_DOMAIN}
             paths:
@@ -82,7 +68,16 @@ spec:
         tls:
           - hosts:
               - adguard.${SECRET_DOMAIN}
-          - secretName: adguard-home-tls
+            secretName: adguard-home-tls
+    persistence:
+      config:
+        enabled: true
+        type: emptyDir
+        mountPath: /opt/adguardhome/conf
+      data:
+        enabled: true
+        existingClaim: adguard-home-data
+        mountPath: /opt/adguardhome/work
     resources:
       requests:
         memory: 750Mi
