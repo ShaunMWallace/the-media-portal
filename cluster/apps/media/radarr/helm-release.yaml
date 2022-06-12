@@ -50,8 +50,8 @@ spec:
       media:
         enabled: true
         type: nfs
-        server: '${NFS_SERVER_IP}'
-        path: /Movies
+        server: '${NFS_SERVER_ADDR}'
+        path: /mnt/redpool/media/Movies
         mountPath: /media
     podSecurityContext:
       runAsUser: 568
