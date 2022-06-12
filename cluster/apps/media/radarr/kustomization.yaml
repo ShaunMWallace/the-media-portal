@@ -8,7 +8,5 @@ resources:
   # To enable automatic Kubernetes upgrades uncomment
   # the below line
   # - system-upgrade
-  - default
-  - kube-system
-  - networking
-  - media
+  - pvc.yaml
+  - helm-release.yaml
