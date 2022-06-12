@@ -51,7 +51,7 @@ spec:
         enabled: true
         type: nfs
         server: '${NFS_SERVER_ADDR}'
-        path: /mnt/redpool/media/Movies
+        path: /Movies
         mountPath: /media
     podSecurityContext:
       runAsUser: 568
