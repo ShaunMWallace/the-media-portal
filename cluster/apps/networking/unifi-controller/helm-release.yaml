@@ -20,24 +20,59 @@ spec:
       repository: jacobalberty/unifi
       tag: v7.1.66
     env:
-      TZ: "${TIMEZONE}"
+      TZ: '${TIMEZONE}'
+    service:
+      main:
+        enabled: true
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/allow-shared-ip: unifi
+        loadBalancerIP: ${METALLB_UNIFI_ADDR}
+        externalTrafficPolicy: Local
+        ports:
+          stun:
+            enabled: false
+          syslog:
+            enabled: false
+          discovery:
+            enabled: false
+      udp:
+        enabled: true
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/allow-shared-ip: unifi
+        loadBalancerIP: ${METALLB_UNIFI_ADDR}
+        externalTrafficPolicy: Local
+        ports:
+          stun:
+            enabled: true
+            port: 3478
+            protocol: UDP
+          syslog:
+            enabled: true
+            port: 5514
+            protocol: UDP
+          discovery:
+            enabled: true
+            port: 10001
+            protocol: UDP
     ingress:
       main:
         enabled: true
-        ingressClassName: "traefik"
+        ingressClassName: 'traefik'
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-internal-only@kubernetescrd"
+          cert-manager.io/cluster-issuer: 'letsencrypt-production'
+          traefik.ingress.kubernetes.io/router.entrypoints: 'websecure'
+          traefik.ingress.kubernetes.io/router.middlewares: 'networking-internal-only@kubernetescrd'
         hosts:
-          - host: "unifi.${SECRET_DOMAIN}"
+          - host: 'unifi.${SECRET_DOMAIN}'
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "unifi.${SECRET_DOMAIN}"
-            secretName: "unifi-tls"
+              - 'unifi.${SECRET_DOMAIN}'
+            secretName: 'unifi-tls'
     persistence:
       data:
         enabled: true
