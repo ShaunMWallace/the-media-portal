@@ -53,12 +53,6 @@ spec:
         server: '${NFS_SERVER_ADDR}'
         path: /mnt/redpool/Media/Movies
         mountPath: /media
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      supplementalGroups:
-        - 100
     resources:
       requests:
         cpu: 100m
