@@ -49,10 +49,13 @@ spec:
         existingClaim: radarr-data
       media:
         enabled: true
-        type: nfs
-        server: '${NFS_SERVER_ADDR}'
-        path: /mnt/redpool/Media/Movies
+        type: custom
+        volumeSpec:
+          nfs:
+            server: '${NFS_SERVER_ADDR}'
+            path: /mnt/redpool/Media/Movies
         mountPath: /media
+        readOnly: false
     resources:
       requests:
         cpu: 100m
