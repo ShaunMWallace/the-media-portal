@@ -1,0 +1,70 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: sonarr
+  namespace: media
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: sonarr
+      version: 16.2.3
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: ghcr.io/k8s-at-home/sonarr
+      tag: v3.0.8.1507
+    env:
+      TZ: '${TIMEZONE}'
+    service:
+      main:
+        ports:
+          http:
+            port: 8989
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: 'traefik'
+        annotations:
+          cert-manager.io/cluster-issuer: 'letsencrypt-production'
+          traefik.ingress.kubernetes.io/router.entrypoints: 'websecure'
+          traefik.ingress.kubernetes.io/router.middlewares: 'networking-internal-only@kubernetescrd'
+        hosts:
+          - host: 'sonarr.${SECRET_DOMAIN}'
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - 'sonarr.${SECRET_DOMAIN}'
+            secretName: 'sonarr-tls'
+    persistence:
+      config:
+        enabled: true
+        existingClaim: sonarr-data
+      media:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: '${NFS_SERVER_ADDR}'
+            path: /mnt/redpool/Media/TvShows
+        mountPath: /media
+        readOnly: false
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      supplementalGroups:
+        - 1001
+    resources:
+      requests:
+        cpu: 100m
+        memory: 250Mi
+      limits:
+        memory: 2000Mi
