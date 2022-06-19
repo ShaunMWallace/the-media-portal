@@ -49,16 +49,13 @@ spec:
         existingClaim: radarr-data
       media:
         enabled: true
-        type: nfs
-        server: '${NFS_SERVER_ADDR}'
-        path: /mnt/redpool/media/Movies
+        type: custom
+        volumeSpec:
+          nfs:
+            server: '${NFS_SERVER_ADDR}'
+            path: /mnt/redpool/Media/Movies
         mountPath: /media
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      supplementalGroups:
-        - 100
+        readOnly: false
     resources:
       requests:
         cpu: 100m
