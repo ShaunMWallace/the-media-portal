@@ -56,6 +56,12 @@ spec:
             path: /mnt/redpool/Media/Movies
         mountPath: /media
         readOnly: false
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      supplementalGroups:
+        - 1001
     resources:
       requests:
         cpu: 100m
