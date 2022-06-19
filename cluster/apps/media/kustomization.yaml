@@ -9,3 +9,4 @@ resources:
   # the below line
   # - system-upgrade
   - radarr
+  - sonarr
