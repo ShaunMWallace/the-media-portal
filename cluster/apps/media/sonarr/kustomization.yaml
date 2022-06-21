@@ -8,5 +8,5 @@ resources:
   # To enable automatic Kubernetes upgrades uncomment
   # the below line
   # - system-upgrade
-  - radarr
-  - sonarr
+  - pvc.yaml
+  - helm-release.yaml
