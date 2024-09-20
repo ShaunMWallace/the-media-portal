@@ -17,7 +17,7 @@ spec:
         values:
           - 'true'
   prepare:
-    image: rancher/k3s-upgrade:v1.24.1-k3s1
+    image: rancher/k3s-upgrade:v1.31.1-k3s1
     args:
       - 'prepare'
       - 'k3s-server'
